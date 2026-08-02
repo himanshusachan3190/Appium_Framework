@@ -27,7 +27,7 @@ public class BaseTest {
         caps.setCapability("appActivity", "com.saucelabs.mydemoapp.android.view.activities.SplashActivity");
         caps.setCapability("automationName", "UiAutomator2");
 
-        driver = new AndroidDriver(new URL("http://127.0.0.1:4723/wd/hub"), caps);
+        driver = new AndroidDriver(new URL("http://127.0.0.1:4723"), caps);
         driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(10));
     	wait = new WebDriverWait(driver, Duration.ofSeconds(15));
     	System.out.println("App launched"+ driver.currentActivity());

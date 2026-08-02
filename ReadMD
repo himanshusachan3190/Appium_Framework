@@ -1,0 +1,3 @@
+To run TestNG file in VScode- 
+-In Git Bash / WSL:
+ ./mvnw test
