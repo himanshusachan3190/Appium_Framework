@@ -1,0 +1,9 @@
+.classpath
+.project
+.settings/
+.commandcode/
+/target/
+/test-output/
+*.log
+*.swp
+.DS_Store

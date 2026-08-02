@@ -1,0 +1,14 @@
+<!--
+
+    testng.xml — Test Suite Configuration
+    Run this file to execute all tests in the framework.
+
+    Right-click this file in Eclipse → Run As → TestNG Suite
+-->
+<suite name="AppiumFramework" verbose="1">
+<test name="Login Tests">
+<classes>
+<class name="tests.LoginTest"/>
+</classes>
+</test>
+</suite>
