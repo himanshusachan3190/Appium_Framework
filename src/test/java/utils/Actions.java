@@ -33,21 +33,21 @@ import java.util.List;
  * and Test classes in the framework.
  *
  * Categories:
- *   1. Tap / Click actions
- *   2. Text input actions
- *   3. Wait utilities
- *   4. Element state checks
- *   5. Swipe actions
- *   6. Scroll actions
- *   7. Gesture actions (long press, double tap, drag & drop, pinch, zoom)
- *   8. Keyboard utilities
- *   9. App lifecycle management
- *  10. Screenshot utilities
+ * 1. Tap / Click actions
+ * 2. Text input actions
+ * 3. Wait utilities
+ * 4. Element state checks
+ * 5. Swipe actions
+ * 6. Scroll actions
+ * 7. Gesture actions (long press, double tap, drag & drop, pinch, zoom)
+ * 8. Keyboard utilities
+ * 9. App lifecycle management
+ * 10. Screenshot utilities
  *
  * Usage:
- *   Actions actions = new Actions(driver, wait);
- *   actions.tap(myLocator);
- *   actions.swipeUp();
+ * Actions actions = new Actions(driver, wait);
+ * actions.tap(myLocator);
+ * actions.swipeUp();
  */
 public class Actions {
 
@@ -55,21 +55,21 @@ public class Actions {
     private final WebDriverWait wait;
 
     // ── Default durations ────────────────────────────────────
-    private static final Duration DEFAULT_WAIT    = Duration.ofSeconds(15);
-    private static final Duration SWIPE_DURATION  = Duration.ofMillis(800);
+    private static final Duration DEFAULT_WAIT = Duration.ofSeconds(15);
+    private static final Duration SWIPE_DURATION = Duration.ofMillis(800);
     private static final Duration LONG_PRESS_HOLD = Duration.ofSeconds(2);
 
     // ══════════════════════════════════════════════════════════
-    //  Constructor
+    // Constructor
     // ══════════════════════════════════════════════════════════
 
     public Actions(AndroidDriver driver, WebDriverWait wait) {
         this.driver = driver;
-        this.wait   = wait;
+        this.wait = wait;
     }
 
     // ══════════════════════════════════════════════════════════
-    //  1. TAP / CLICK ACTIONS
+    // 1. TAP / CLICK ACTIONS
     // ══════════════════════════════════════════════════════════
 
     /** Wait for element to be clickable, then tap it */
@@ -101,7 +101,8 @@ public class Actions {
         Sequence doubleTapSeq = new Sequence(finger, 1);
 
         // First tap
-        doubleTapSeq.addAction(finger.createPointerMove(Duration.ZERO, PointerInput.Origin.viewport(), center.x, center.y));
+        doubleTapSeq
+                .addAction(finger.createPointerMove(Duration.ZERO, PointerInput.Origin.viewport(), center.x, center.y));
         doubleTapSeq.addAction(finger.createPointerDown(PointerInput.MouseButton.LEFT.asArg()));
         doubleTapSeq.addAction(new Pause(finger, Duration.ofMillis(50)));
         doubleTapSeq.addAction(finger.createPointerUp(PointerInput.MouseButton.LEFT.asArg()));
@@ -128,7 +129,8 @@ public class Actions {
         Point center = getCenter(element);
         PointerInput finger = new PointerInput(PointerInput.Kind.TOUCH, "finger");
         Sequence longPressSeq = new Sequence(finger, 1);
-        longPressSeq.addAction(finger.createPointerMove(Duration.ZERO, PointerInput.Origin.viewport(), center.x, center.y));
+        longPressSeq
+                .addAction(finger.createPointerMove(Duration.ZERO, PointerInput.Origin.viewport(), center.x, center.y));
         longPressSeq.addAction(finger.createPointerDown(PointerInput.MouseButton.LEFT.asArg()));
         longPressSeq.addAction(new Pause(finger, holdDuration));
         longPressSeq.addAction(finger.createPointerUp(PointerInput.MouseButton.LEFT.asArg()));
@@ -136,7 +138,7 @@ public class Actions {
     }
 
     // ══════════════════════════════════════════════════════════
-    //  2. TEXT INPUT ACTIONS
+    // 2. TEXT INPUT ACTIONS
     // ══════════════════════════════════════════════════════════
 
     /** Clear field and type text */
@@ -167,7 +169,7 @@ public class Actions {
     }
 
     // ══════════════════════════════════════════════════════════
-    //  3. WAIT UTILITIES
+    // 3. WAIT UTILITIES
     // ══════════════════════════════════════════════════════════
 
     /** Wait until element is visible and return it */
@@ -223,7 +225,7 @@ public class Actions {
     }
 
     // ══════════════════════════════════════════════════════════
-    //  4. ELEMENT STATE CHECKS
+    // 4. ELEMENT STATE CHECKS
     // ══════════════════════════════════════════════════════════
 
     /** Check if element is displayed (no wait, no exception) */
@@ -289,7 +291,7 @@ public class Actions {
     }
 
     // ══════════════════════════════════════════════════════════
-    //  5. SWIPE ACTIONS
+    // 5. SWIPE ACTIONS
     // ══════════════════════════════════════════════════════════
 
     /** Swipe up (scroll content down) — 60% of screen height */
@@ -323,26 +325,26 @@ public class Actions {
             case UP:
                 startX = centerX;
                 startY = (int) (size.height * (0.5 + swipePercent / 2));
-                endX   = centerX;
-                endY   = (int) (size.height * (0.5 - swipePercent / 2));
+                endX = centerX;
+                endY = (int) (size.height * (0.5 - swipePercent / 2));
                 break;
             case DOWN:
                 startX = centerX;
                 startY = (int) (size.height * (0.5 - swipePercent / 2));
-                endX   = centerX;
-                endY   = (int) (size.height * (0.5 + swipePercent / 2));
+                endX = centerX;
+                endY = (int) (size.height * (0.5 + swipePercent / 2));
                 break;
             case LEFT:
                 startX = (int) (size.width * (0.5 + swipePercent / 2));
                 startY = centerY;
-                endX   = (int) (size.width * (0.5 - swipePercent / 2));
-                endY   = centerY;
+                endX = (int) (size.width * (0.5 - swipePercent / 2));
+                endY = centerY;
                 break;
             case RIGHT:
                 startX = (int) (size.width * (0.5 - swipePercent / 2));
                 startY = centerY;
-                endX   = (int) (size.width * (0.5 + swipePercent / 2));
-                endY   = centerY;
+                endX = (int) (size.width * (0.5 + swipePercent / 2));
+                endY = centerY;
                 break;
             default:
                 throw new IllegalArgumentException("Unknown direction: " + direction);
@@ -381,28 +383,28 @@ public class Actions {
     }
 
     // ══════════════════════════════════════════════════════════
-    //  6. SCROLL ACTIONS
+    // 6. SCROLL ACTIONS
     // ══════════════════════════════════════════════════════════
 
     /** Scroll to an element using UiScrollable (Android) */
     public WebElement scrollToText(String visibleText) {
         return driver.findElement(AppiumBy.androidUIAutomator(
                 "new UiScrollable(new UiSelector().scrollable(true))"
-              + ".scrollIntoView(new UiSelector().textContains(\"" + visibleText + "\"))"));
+                        + ".scrollIntoView(new UiSelector().textContains(\"" + visibleText + "\"))"));
     }
 
     /** Scroll to an element by resource-id using UiScrollable */
     public WebElement scrollToResourceId(String resourceId) {
         return driver.findElement(AppiumBy.androidUIAutomator(
                 "new UiScrollable(new UiSelector().scrollable(true))"
-              + ".scrollIntoView(new UiSelector().resourceId(\"" + resourceId + "\"))"));
+                        + ".scrollIntoView(new UiSelector().resourceId(\"" + resourceId + "\"))"));
     }
 
     /** Scroll to an element by content-desc using UiScrollable */
     public WebElement scrollToContentDesc(String contentDesc) {
         return driver.findElement(AppiumBy.androidUIAutomator(
                 "new UiScrollable(new UiSelector().scrollable(true))"
-              + ".scrollIntoView(new UiSelector().description(\"" + contentDesc + "\"))"));
+                        + ".scrollIntoView(new UiSelector().description(\"" + contentDesc + "\"))"));
     }
 
     /** Scroll down until an element is found or max attempts reached */
@@ -446,7 +448,7 @@ public class Actions {
     }
 
     // ══════════════════════════════════════════════════════════
-    //  7. GESTURE ACTIONS
+    // 7. GESTURE ACTIONS
     // ══════════════════════════════════════════════════════════
 
     /** Drag an element and drop it onto another element */
@@ -458,10 +460,12 @@ public class Actions {
 
         PointerInput finger = new PointerInput(PointerInput.Kind.TOUCH, "finger");
         Sequence dragDrop = new Sequence(finger, 1);
-        dragDrop.addAction(finger.createPointerMove(Duration.ZERO, PointerInput.Origin.viewport(), sourceCenter.x, sourceCenter.y));
+        dragDrop.addAction(finger.createPointerMove(Duration.ZERO, PointerInput.Origin.viewport(), sourceCenter.x,
+                sourceCenter.y));
         dragDrop.addAction(finger.createPointerDown(PointerInput.MouseButton.LEFT.asArg()));
         dragDrop.addAction(new Pause(finger, Duration.ofMillis(500)));
-        dragDrop.addAction(finger.createPointerMove(Duration.ofMillis(800), PointerInput.Origin.viewport(), targetCenter.x, targetCenter.y));
+        dragDrop.addAction(finger.createPointerMove(Duration.ofMillis(800), PointerInput.Origin.viewport(),
+                targetCenter.x, targetCenter.y));
         dragDrop.addAction(new Pause(finger, Duration.ofMillis(300)));
         dragDrop.addAction(finger.createPointerUp(PointerInput.MouseButton.LEFT.asArg()));
         driver.perform(Collections.singletonList(dragDrop));
@@ -491,16 +495,20 @@ public class Actions {
 
         // Finger 1: from above center → to center
         Sequence pinch1 = new Sequence(finger1, 0);
-        pinch1.addAction(finger1.createPointerMove(Duration.ZERO, PointerInput.Origin.viewport(), center.x, center.y - offset));
+        pinch1.addAction(
+                finger1.createPointerMove(Duration.ZERO, PointerInput.Origin.viewport(), center.x, center.y - offset));
         pinch1.addAction(finger1.createPointerDown(PointerInput.MouseButton.LEFT.asArg()));
-        pinch1.addAction(finger1.createPointerMove(Duration.ofMillis(600), PointerInput.Origin.viewport(), center.x, center.y));
+        pinch1.addAction(
+                finger1.createPointerMove(Duration.ofMillis(600), PointerInput.Origin.viewport(), center.x, center.y));
         pinch1.addAction(finger1.createPointerUp(PointerInput.MouseButton.LEFT.asArg()));
 
         // Finger 2: from below center → to center
         Sequence pinch2 = new Sequence(finger2, 0);
-        pinch2.addAction(finger2.createPointerMove(Duration.ZERO, PointerInput.Origin.viewport(), center.x, center.y + offset));
+        pinch2.addAction(
+                finger2.createPointerMove(Duration.ZERO, PointerInput.Origin.viewport(), center.x, center.y + offset));
         pinch2.addAction(finger2.createPointerDown(PointerInput.MouseButton.LEFT.asArg()));
-        pinch2.addAction(finger2.createPointerMove(Duration.ofMillis(600), PointerInput.Origin.viewport(), center.x, center.y));
+        pinch2.addAction(
+                finger2.createPointerMove(Duration.ofMillis(600), PointerInput.Origin.viewport(), center.x, center.y));
         pinch2.addAction(finger2.createPointerUp(PointerInput.MouseButton.LEFT.asArg()));
 
         driver.perform(Arrays.asList(pinch1, pinch2));
@@ -519,21 +527,23 @@ public class Actions {
         Sequence zoom1 = new Sequence(finger1, 0);
         zoom1.addAction(finger1.createPointerMove(Duration.ZERO, PointerInput.Origin.viewport(), center.x, center.y));
         zoom1.addAction(finger1.createPointerDown(PointerInput.MouseButton.LEFT.asArg()));
-        zoom1.addAction(finger1.createPointerMove(Duration.ofMillis(600), PointerInput.Origin.viewport(), center.x, center.y - offset));
+        zoom1.addAction(finger1.createPointerMove(Duration.ofMillis(600), PointerInput.Origin.viewport(), center.x,
+                center.y - offset));
         zoom1.addAction(finger1.createPointerUp(PointerInput.MouseButton.LEFT.asArg()));
 
         // Finger 2: from center → move down
         Sequence zoom2 = new Sequence(finger2, 0);
         zoom2.addAction(finger2.createPointerMove(Duration.ZERO, PointerInput.Origin.viewport(), center.x, center.y));
         zoom2.addAction(finger2.createPointerDown(PointerInput.MouseButton.LEFT.asArg()));
-        zoom2.addAction(finger2.createPointerMove(Duration.ofMillis(600), PointerInput.Origin.viewport(), center.x, center.y + offset));
+        zoom2.addAction(finger2.createPointerMove(Duration.ofMillis(600), PointerInput.Origin.viewport(), center.x,
+                center.y + offset));
         zoom2.addAction(finger2.createPointerUp(PointerInput.MouseButton.LEFT.asArg()));
 
         driver.perform(Arrays.asList(zoom1, zoom2));
     }
 
     // ══════════════════════════════════════════════════════════
-    //  8. KEYBOARD UTILITIES
+    // 8. KEYBOARD UTILITIES
     // ══════════════════════════════════════════════════════════
 
     /** Hide the on-screen keyboard if visible */
@@ -560,7 +570,7 @@ public class Actions {
     }
 
     // ══════════════════════════════════════════════════════════
-    //  9. APP LIFECYCLE MANAGEMENT
+    // 9. APP LIFECYCLE MANAGEMENT
     // ══════════════════════════════════════════════════════════
 
     /** Close the app (keep session alive) */
@@ -595,13 +605,13 @@ public class Actions {
     }
 
     // ══════════════════════════════════════════════════════════
-    //  10. SCREENSHOT UTILITIES
+    // 10. SCREENSHOT UTILITIES
     // ══════════════════════════════════════════════════════════
 
     /** Take a screenshot and save to the specified path */
     public String takeScreenshot(String directory, String fileName) {
         File screenshot = driver.getScreenshotAs(OutputType.FILE);
-        Path destDir  = Paths.get(directory);
+        Path destDir = Paths.get(directory);
         Path destFile = destDir.resolve(fileName + ".png");
         try {
             Files.createDirectories(destDir);
@@ -617,7 +627,7 @@ public class Actions {
     public String takeElementScreenshot(By locator, String directory, String fileName) {
         WebElement element = waitForVisible(locator);
         File screenshot = element.getScreenshotAs(OutputType.FILE);
-        Path destDir  = Paths.get(directory);
+        Path destDir = Paths.get(directory);
         Path destFile = destDir.resolve(fileName + ".png");
         try {
             Files.createDirectories(destDir);
@@ -630,7 +640,7 @@ public class Actions {
     }
 
     // ══════════════════════════════════════════════════════════
-    //  INTERNAL HELPERS
+    // INTERNAL HELPERS
     // ══════════════════════════════════════════════════════════
 
     /** Get the centre point of an element */
@@ -638,7 +648,7 @@ public class Actions {
         Point location = element.getLocation();
         Dimension size = element.getSize();
         return new Point(
-                location.getX() + size.getWidth()  / 2,
+                location.getX() + size.getWidth() / 2,
                 location.getY() + size.getHeight() / 2);
     }
 }

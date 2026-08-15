@@ -6,6 +6,12 @@
     Right-click this file in Eclipse → Run As → TestNG Suite using the TestNG plugin.
 -->
 <suite name="AppiumFramework" verbose="1">
+
+<!-- Extent Reports Listener — auto-generates rich HTML report -->
+<listeners>
+<listener class-name="utils.ExtentTestListener"/>
+</listeners>
+
 <test name="Login Tests">
 <classes>
 <class name="tests.LoginTest"/>

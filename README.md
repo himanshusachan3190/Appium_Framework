@@ -238,7 +238,7 @@ actions.takeScreenshot("screenshots", "login_success");
 
 ---
 
-## 📊 Test Reports
+## 📊 Extends Reports
 
 After running tests, reports are generated at:
 
@@ -248,7 +248,7 @@ test-output/                      # TestNG HTML reports
 ```
 
 Open `test-output/index.html` in a browser to view the detailed TestNG report.
-
+Open `reports/ExtentReport.html` in a browser to view the detailed ExtentReport.html report.
 ---
 
 ## 🔄 Device Configuration

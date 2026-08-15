@@ -17,6 +17,11 @@ public class BaseTest {
 	protected static AndroidDriver driver;
 	
 	protected static WebDriverWait wait;
+
+	/** Public accessor for the driver — used by ExtentTestListener for screenshots */
+	public static AndroidDriver getDriver() {
+		return driver;
+	}
 	
 	@BeforeClass
 	  public static void setup() throws Exception {
