@@ -1,48 +1,78 @@
 package tests;
 
-import org.openqa.selenium.By;
-import org.openqa.selenium.WebElement;
-import org.openqa.selenium.support.ui.ExpectedConditions;
-import org.openqa.selenium.support.ui.WebDriverWait;
+import base.BaseTest;
+import pages.LoginPage;
+import pages.ProductsPage;
 import org.testng.Assert;
+import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
 
-import java.time.Duration;
-
-import base.BaseTest;
-import io.appium.java_client.AppiumBy;
-
-
+/**
+ * LoginTest.java — updated for Day 10
+ *
+ * Changes from Day 9:
+ * - No longer finds elements directly
+ * - Uses LoginPage and ProductsPage objects instead
+ * - Test methods are now clean — just actions and assertions
+ */
 public class LoginTest extends BaseTest {
-    
-	private static final String menu = "com.saucelabs.mydemoapp.android:id/menuIV";
-	private static final String USERNAME = "com.saucelabs.mydemoapp.android:id/nameET";
-	private static final String PASSWORD = "com.saucelabs.mydemoapp.android:id/passwordET";
-	private static final String LOGIN_BTN = "com.saucelabs.mydemoapp.android:id/loginBtn";
-	private static final String PRODUCT_TV = "com.saucelabs.mydemoapp.android:id/productTV";
-	
-	
-	@Test(priority = 1)
-	public void testValidLogin() {
-		WebDriverWait localWait = new WebDriverWait(driver, Duration.ofSeconds(20));
-        
-		driver.findElement(By.id(menu)).click();
-		driver.findElement(AppiumBy.androidUIAutomator(
-			    "new UiSelector().text(\"Log In\")"
-			)).click();
-		
-		WebElement user = wait.until(
-			      ExpectedConditions.visibilityOfElementLocated(By.id(USERNAME)));
-			    user.clear();
-			    user.sendKeys("bod@example.com");
-			    
-			    driver.findElement(By.id(PASSWORD)).sendKeys("10203040");
-			    driver.findElement(By.id(LOGIN_BTN)).click();
-			    
-		WebElement products = localWait.until(
-				ExpectedConditions.visibilityOfElementLocated(By.id(PRODUCT_TV)));
-		System.out.println("login successfully");
-		Assert.assertTrue(products.isDisplayed(),
-				"Products screen should be visible after the app launches");
-	}
+
+    private LoginPage loginPage;
+    private ProductsPage productsPage;
+
+    // Valid credentials
+    private static final String VALID_USER = "bod@example.com";
+    private static final String VALID_PASS = "10203040";
+    private static final String WRONG_PASS = "wrongpass";
+
+    // ── Runs before each @Test — resets app and page objects ──
+    @BeforeMethod
+    public void initPages() {
+        // Reset app to a fresh state so each test starts from the home screen
+        String appPackage = "com.saucelabs.mydemoapp.android";
+        driver.terminateApp(appPackage);
+        driver.activateApp(appPackage);
+
+        loginPage = new LoginPage(driver, wait);
+        productsPage = new ProductsPage(driver, wait);
+    }
+
+    // ── Test 1: Valid login ───────────────────────────────────
+    @Test(priority = 1)
+    public void testValidLogin() {
+        loginPage.login(VALID_USER, VALID_PASS);
+
+        Assert.assertTrue(
+                productsPage.isProductsScreenLoaded(),
+                "Products screen should load after valid login");
+
+        System.out.println("✓ Products screen loaded.");
+        System.out.println("✓ Product count: " + productsPage.getProductCount());
+    }
+
+    // ── Test 2: Invalid login ─────────────────────────────────
+    @Test(priority = 2)
+    public void testInvalidLogin() {
+        loginPage.login(VALID_USER, WRONG_PASS);
+
+        Assert.assertTrue(
+                loginPage.isErrorDisplayed(),
+                "Error message should appear for wrong password");
+
+        System.out.println("✓ Error shown: " + loginPage.getErrorText());
+    }
+
+    // ── Test 3: Products list not empty ───────────────────────
+    @Test(priority = 3)
+    public void testProductsListNotEmpty() {
+        loginPage.login(VALID_USER, VALID_PASS);
+
+        int count = productsPage.getProductCount();
+
+        Assert.assertTrue(count > 0,
+                "Products list should not be empty after login");
+
+        System.out.println("✓ Products found: " + count);
+        System.out.println("✓ First product: " + productsPage.getFirstProductName());
+    }
 }
