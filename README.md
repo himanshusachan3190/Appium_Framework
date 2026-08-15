@@ -247,9 +247,10 @@ target/surefire-reports/          # Maven Surefire reports
 test-output/                      # TestNG HTML reports
 ```
 
-Open `test-output/index.html` in a browser to view the detailed TestNG report.
+ Open `test-output/index.html` in a browser to view the detailed TestNG report.
+
 Open `reports/ExtentReport.html` in a browser to view the detailed ExtentReport.html report.
----
+
 
 ## 🔄 Device Configuration
 
