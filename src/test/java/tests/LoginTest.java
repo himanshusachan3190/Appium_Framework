@@ -3,27 +3,23 @@ package tests;
 import base.BaseTest;
 import pages.LoginPage;
 import pages.ProductsPage;
+import utils.ConfigReader;
 import org.testng.Assert;
 import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
 
 /**
- * LoginTest.java — updated for Day 10
- *
- * Changes from Day 9:
- * - No longer finds elements directly
- * - Uses LoginPage and ProductsPage objects instead
- * - Test methods are now clean — just actions and assertions
+ * - Credentials are read from config.properties via ConfigReader
  */
 public class LoginTest extends BaseTest {
 
     private LoginPage loginPage;
     private ProductsPage productsPage;
 
-    // Valid credentials
-    private static final String VALID_USER = "bod@example.com";
-    private static final String VALID_PASS = "10203040";
-    private static final String WRONG_PASS = "wrongpass";
+    // Credentials read from config.properties
+    private static final String VALID_USER = ConfigReader.get("valid.username");
+    private static final String VALID_PASS = ConfigReader.get("valid.password");
+    private static final String WRONG_PASS = ConfigReader.get("wrong.password");
 
     // ── Runs before each @Test — resets app and page objects ──
     @BeforeMethod
